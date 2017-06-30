@@ -10,42 +10,96 @@ class Game extends Component {
     constructor () {
         super();
         this.state = {
-            start: false,
-            next: '',
-            winner: ''
+            history: [
+                {
+                    squares: Array(9).fill(null)
+                }
+            ],
+            stepNumber: 0,
+            xIsNext: true
         };
     }
 
     render () {
+        let status = 'Next Player: ' + (this.state.xIsNext ? 'X' : 'O');
+        const current = this.state.history[this.state.stepNumber].squares;
+        const winner = calculateWinner(current);
+        if (winner) {
+            status = `Winner:${winner}`;
+        }
+        const moves = this.state.history.map((step, move) => {
+            const desc = move ? "Move #" + move : "Game start";
+            return (
+                <li key={move}>
+                    <a href="#" onClick={() => this.jumpTo(move)}>{desc}</a>
+                </li>
+            );
+        });
+
         return (
             <div className="game-box">
-                <Board gameState={this.state}/>
+                <Board
+                    squares={current}
+                    xIsNext={this.state.xIsNext}
+                    onClick={(i) => { this.handleClick(i) }}
+                />
                 <div className="game-handle">
-                    <p>下一个操作者:{this.state.next}</p>
-                    <p>赢家:{this.state.winner}</p>
-                    <p><a href="javascript:void(0);" onClick={() => {
-                        this.setState({
-                            start: true,
-                            next: 'X'
-                        });
-                    }}>开始游戏</a></p>
+                    <p>{status}</p>
+                    <ul>
+                        {moves}
+                    </ul>
                 </div>
             </div>
         );
     }
 
-    onToStart () {
+    handleClick (i) {
+        const history = this.state.history.slice(0, this.state.stepNumber + 1);
+        const current = history[history.length - 1];
+        const squares = current.squares.slice();
+        const winner = calculateWinner(squares);
+        if (winner) {
+            return;
+        }
+
+        squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
-            start: true
+            history: this.state.history.concat([{
+                squares: squares
+            }]),
+            stepNumber: history.length,
+            xIsNext: !this.state.xIsNext
         });
     }
 
-    onToStop () {
+    jumpTo(step) {
         this.setState({
-            start: false
+            stepNumber: step,
+            xIsNext: (step % 2) === 0,
         });
     }
 
+}
+
+
+function calculateWinner (squares) {
+    const lines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+    ];
+    for (let i = 0; i < lines.length; i++) {
+        const [a, b, c] = lines[i];
+        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+            return squares[a];
+        }
+    }
+    return null;
 }
 
 export default Game;

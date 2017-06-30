@@ -2,58 +2,66 @@
  * Created by jfhuang on 17/6/18.
  */
 import React, { Component } from 'react';
-import Squre from './Square';
+import Square from './Square';
 
 class Board extends Component {
 
-    constructor () {
-        super();
-        this.state = {
-            squares: Array(9).fill(null)
-        };
-    }
+    // constructor () {
+    //     super();
+    //     this.state = {
+    //         squares: Array(9).fill(null),
+    //         xIsNext: true
+    //     };
+    // }
 
-    renderRow (start, len, curState) {
-        const eles = [];
-        for (let i = start; i < start + len; i++) {
-            eles.push(i);
-        }
-        return (
-            <div className="board-row clearfix" key={'row-' + start}>
-                {
-                    eles.map((item) => {
-                        return <Squre index={item}
-                                      value={curState[item]}
-                                      key={item}
-                                      gameState={this.props.gameState}
-                                      onClick={() => this.handleClick(item)}
-                        />;
-                    })
-                }
-            </div>
-        );
-    }
+    // handleClick (i) {
+    //     const squares = this.props.squares.slice();
+    //     const winner = calculateWinner(this.props.squares);
+    //     if (winner) {
+    //         return;
+    //     }
+    //     squares[i] = this.props.xIsNext ? 'X' : 'O';
+    //     this.setState({
+    //         squares,
+    //         xIsNext: !this.props.xIsNext
+    //     });
+    // }
 
-    handleClick (i) {
-        const squares = this.state.squares.slice();
-        squares[i] = this.props.gameState.next;
-        this.setState({
-            squares
-        });
+    renderSquare(i) {
+        return <Square
+            value={this.props.squares[i]}
+            onClick={() => this.props.onClick(i)}
+        />;
     }
 
     render () {
-        const arr = [0, 3, 6];
+        // let status = 'Next Player: ' + (this.props.xIsNext ? 'X' : 'O');
+        // const winner = calculateWinner(this.props.squares);
+        // if (winner) {
+        //     status = `Winner:${winner}`;
+        // }
         return (
             <div className="board-box">
-                {
-                    arr.map((item) => {
-                        return this.renderRow(item, 3, this.state);
-                    })
-                }
+                {/*<div className="status">{status}</div>*/}
+                <div className="board-row">
+                    {this.renderSquare(0)}
+                    {this.renderSquare(1)}
+                    {this.renderSquare(2)}
+                </div>
+                <div className="board-row">
+                    {this.renderSquare(3)}
+                    {this.renderSquare(4)}
+                    {this.renderSquare(5)}
+                </div>
+                <div className="board-row">
+                    {this.renderSquare(6)}
+                    {this.renderSquare(7)}
+                    {this.renderSquare(8)}
+                </div>
             </div>
         );
     }
 }
+
 
 export default Board;

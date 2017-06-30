@@ -2,22 +2,31 @@
  * Created by jfhuang on 17/6/18.
  */
 
-import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
+import React from 'react';
+// // import ReactDOM from 'react-dom';
+//
+// class Square extends Component {
+//
+//     render () {
+//         return (
+//             <div className="square-box" onClick={() => {
+//                 this.props.onClick();
+//             }}>
+//                 {this.props.value}
+//             </div>
+//         );
+//     }
+// }
 
-class Square extends Component {
-
-    render () {
+// Functional Components
+function Square (props) {
         return (
             <div className="square-box" onClick={() => {
-                if (this.props.gameState.start) {
-                    this.props.onClick();
-                }
+                props.onClick();
             }}>
-                {this.props.value}
+                {props.value}
             </div>
         );
-    }
 }
 
 export default Square;
