@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="lib/react.min.js"></script>
+    <script src="lib/react-dom.min.js"></script>
+    <script src="lib/browser.min.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel">
+        const generateCustomer = (index) => {
+            return {
+                id: '00' + index,
+                name: '公司' + index,
+                author: '名字' + index,
+                address: '广东省深圳市' + index
+            }
+        };
+        const generate = (arr, start) => {
+            for (let i = start; i < start + 10; i++) {
+                customers.push(generateCustomer(i));
+            }
+        };
+        const customers = [
+            {
+                id: '001',
+                name: '金蝶集团',
+                author: '小明',
+                address: '广东省深圳市罗湖区'
+            },
+            {
+                id: '002',
+                name: '腾讯集团',
+                author: '小明',
+                address: '广东省深圳市南山区'
+            }
+        ];
+
+        let index = 3;
+        generate(customers, index);
+        index += 10;
+
+        ReactDOM.render(
+            <ul className="list">
+                {
+                    customers.map((item) => {
+                        return <li className="clearfix">
+                            <span className="text">{item.name}</span>
+                            <span className="name-text">{item.author}</span>
+                            <p className="address">{item.address}</p>
+                        </li>;
+                    })
+                }
+            </ul>,
+            document.getElementById('app')
+        );
+    </script>
+</body>
+
+</html>

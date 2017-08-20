@@ -1,0 +1,33 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.list{
+    padding: 0 24px;
+}
+.list li {
+    padding: 15px 0;
+    list-style-type: none;
+    font-size: 14px;
+    line-height: 24px;
+    border-bottom: 1px solid #ccc;
+}
+.text{
+    float: left;
+}
+.name-text{
+    float: right;
+}
+.address {
+    margin-top: 24px;
+}
+.clearfix:before,
+.clearfix:after{
+    content: '.';
+    display: block;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+    clear: both;
+}

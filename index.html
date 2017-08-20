@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/react.min.js"></script>
+    <script src="./lib/react-dom.min.js"></script>
+    <script src="./lib/browser.min.js"></script>
+</head>
+<body>
+<div id="example"></div>
+<script type="text/babel">
+    const names = ['001', '002', '003']
+    ReactDOM.render(
+            <div>
+                {
+                    names.map(function (name) {
+                        return <span>Hello, {name}</span>
+                    })
+                }
+            </div>,
+            document.getElementById('example')
+    );
+</script>
+</body>
+</html>

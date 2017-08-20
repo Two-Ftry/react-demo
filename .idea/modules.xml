@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/my-react-app.iml" filepath="$PROJECT_DIR$/.idea/my-react-app.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/react-demo.iml" filepath="$PROJECT_DIR$/.idea/react-demo.iml" />
+>>>>>>> xx
     </modules>
   </component>
 </project>
