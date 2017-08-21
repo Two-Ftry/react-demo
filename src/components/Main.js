@@ -3,21 +3,18 @@ require('styles/App.css');
 
 import React from 'react';
 
-let yeomanImage = require('../images/yeoman.png');
+import GallerySection from './gallery/GallerySection';
 
 class AppComponent extends React.Component {
   render() {
     return (
-      <div className="index">
-        <img src={yeomanImage} alt="Yeoman Generator" />
-        <span>哈哈哈</span>
-        <div className="notice">Please edit <code>src/components/Main.js</code> to get started!</div>
+      <div className="content">
+        <GallerySection />
       </div>
     );
   }
 }
 
-AppComponent.defaultProps = {
-};
+AppComponent.defaultProps = {};
 
 export default AppComponent;

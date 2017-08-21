@@ -1,0 +1,22 @@
+.page-bar {
+  position: absolute;
+  width: 100%;
+  bottom: 30px;
+  text-align: center;
+}
+.page-bar span {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  margin-left: 10px;
+  background-color: #222;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.page-bar span:hover {
+  background-color: #333;
+}
+.page-bar span.active {
+  background-color: red;
+}

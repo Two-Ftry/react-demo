@@ -13,7 +13,7 @@ module.exports = {
   additionalPaths: additionalPaths,
   port: defaultSettings.port,
   debug: true,
-  devtool: 'eval',
+  devtool: 'source-map',
   output: {
     path: path.join(__dirname, '/../dist/assets'),
     filename: 'app.js',
@@ -35,7 +35,8 @@ module.exports = {
       sources: `${defaultSettings.srcPath}/sources/`,
       stores: `${defaultSettings.srcPath}/stores/`,
       styles: `${defaultSettings.srcPath}/styles/`,
-      config: `${defaultSettings.srcPath}/config/` + process.env.REACT_WEBPACK_ENV,
+      config:
+        `${defaultSettings.srcPath}/config/` + process.env.REACT_WEBPACK_ENV,
       'react/lib/ReactMount': 'react-dom/lib/ReactMount'
     }
   },
