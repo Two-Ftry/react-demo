@@ -12,26 +12,28 @@ imageDatas.forEach(item => {
 
 // 定义区块
 const blockArray = [];
+const imgWidth = 347;
+const imgHeight = 386;
 const initBlock = () => {
   const root = document.documentElement || document.body;
-  const widthTrisection = root.offsetWidth / 3;
-  const heightTrisection = root.offsetHeight / 3;
-  for (let i = 0, len = 9; i < len; i++) {
-    if (i === 4) {
-      continue;
-    }
-    let startX = 0;
-    let startY = 0;
-    if (i !== 0) {
-      startX = i % 3 * widthTrisection;
-      startY = Math.floor(i / 3) * heightTrisection;
-    }
-
-    blockArray.push({
-      start: [startX, startY],
-      end: [startX + widthTrisection, startY + heightTrisection]
-    });
-  }
+  const width = root.offsetWidth;
+  const height = root.offsetHeight;
+  // 左侧区域
+  blockArray.push({
+    start: [0 - imgWidth / 2, 0 - imgHeight / 2],
+    end: [width / 2 - 2 / 3 * imgWidth, height + imgHeight / 2]
+  });
+  // 右侧区域
+  blockArray.push({
+    start: [width / 2 + 2 / 3 * imgWidth, 0 - imgHeight / 2],
+    end: [width + imgWidth / 2, height + imgHeight / 2]
+  });
+  // 上侧区域
+  blockArray.push({
+    start: [width / 2 - imgWidth, 0 - imgHeight / 2],
+    end: [width / 2 + imgWidth, height / 2 - imgHeight * 2 / 3]
+  });
+  console.log('blockArray', blockArray);
 };
 
 const root = document.documentElement || document.body;
@@ -42,8 +44,20 @@ const getRandomStyle = isSelected => {
   const deg = Math.random() * 90 - 45;
   const sty = {};
   if (!isSelected) {
-    sty.top = Math.abs(Math.floor(Math.random() * height)) + 'px';
-    sty.left = Math.abs(Math.floor(Math.random() * width)) + 'px';
+    // 图片应该落到哪个区域
+    const areaIndex = Math.abs(Math.floor(Math.random() * 3));
+    const area = blockArray[areaIndex];
+    console.log('areaIndex:', areaIndex);
+    if (!area) {
+      return {};
+    }
+    const startX = area.start[0];
+    const startY = area.start[1];
+    const endX = area.end[0];
+    const endY = area.end[1];
+    sty.left = Math.floor(Math.random() * endX + startX) + 'px';
+    sty.top = Math.floor(Math.random() * endY + startY) + 'px';
+    console.log('left %s, top %s', sty.left, sty.top);
     sty.opacity = '0.7';
     sty.transform = `rotate(${deg}deg)`;
   } else {
@@ -63,6 +77,7 @@ class GallerySection extends React.Component {
       selectedIndex: Math.floor(Math.random() * 16)
     };
   }
+
   render() {
     initBlock();
     const imageList = imageDatas.map((item, index) => {
@@ -75,7 +90,7 @@ class GallerySection extends React.Component {
             this.selectNewImage(index);
           }}
         >
-          <img src={item.src} />
+          <img src={item.src}/>
           <p>
             {item.desc}
           </p>
@@ -95,6 +110,7 @@ class GallerySection extends React.Component {
       </section>
     );
   }
+
   selectNewImage = index => {
     if (index === this.state.selectedIndex) {
       // todo

@@ -10,6 +10,7 @@ class PageBar extends React.Component {
       pageList.push(
         <span
           className={classes}
+          key={i}
           onClick={() => {
             this.handleClick(i);
           }}
