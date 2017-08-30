@@ -36,10 +36,15 @@ class ImgFigure extends React.Component {
     if (status.rotate) {
       styleObj.transform = `rotate(${status.rotate}deg)`;
     }
+    let className = '';
+    if (status.isInverse) {
+      className += 'is-inverse ';
+    }
+    className += (this.props.index === this.props.selectedIndex ? 'selected-img' : '');
     return (
       <li
         style={styleObj}
-        className={this.props.index === this.props.selectedIndex ? 'selected-img' : ''}
+        className={className}
         key={item.fileName}
         onClick={() => {
           this.props.onClick(this.props.index);
@@ -47,8 +52,9 @@ class ImgFigure extends React.Component {
       >
         <img src={item.src}/>
         <p>
-          {item.desc}
+          {item.title}
         </p>
+        <div className="img-back">{item.desc}</div>
       </li>
     );
   }
@@ -89,7 +95,8 @@ class GallerySection extends React.Component {
         //     top: 0,
         //     left: 0
         //   },
-        //   rotate: 20
+        //   rotate: 20,
+        //   isInverse: false
         // }
       ]
     };
@@ -200,7 +207,8 @@ class GallerySection extends React.Component {
             left: 0,
             top: 0
           },
-          rotate: 0
+          rotate: 0,
+          isInverse: false
         }
       }
       return (
@@ -222,14 +230,26 @@ class GallerySection extends React.Component {
           pageLen={imageDatas.length}
           selectedIndex={this.state.selectedIndex}
           selectNewImage={this.selectNewImage}
+          inverse={this.inverse}
         />
       </section>
     );
   }
 
+  inverse = (index) => {
+    const imageStateArray = this.state.imageStateArray;
+    if (imageStateArray[index]) {
+      imageStateArray[index].isInverse = !imageStateArray[index].isInverse;
+      this.setState({
+        imageStateArray: imageStateArray
+      });
+    }
+  }
+
   selectNewImage = index => {
     if (index === this.state.selectedIndex) {
-      // todo 翻转图片
+      // 翻转图片
+      this.inverse(index);
     } else {
       this.setState({
         selectedIndex: index

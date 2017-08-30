@@ -27,7 +27,8 @@ class PageBar extends React.Component {
   }
   handleClick(i) {
     if (i === this.props.selectedIndex) {
-      // todo
+      // 翻转
+      this.props.inverse(i);
     } else {
       this.props.selectNewImage(i);
     }

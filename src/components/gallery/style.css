@@ -4,6 +4,7 @@
   height: 100%;
   background: #ddd;
   overflow: hidden;
+  perspective: 1200px;
 }
 .image-list li {
   position: absolute;
@@ -14,13 +15,35 @@
   border-radius: 8px;
   background-color: #fff;
   cursor: pointer;
+  transform-origin: 0 50% 0;
+  transform-style: preserve-3d;
 }
 .image-list p {
   color: #222;
 }
 
 .selected-img {
-  transform: translate(-50%, -50%);
+  margin-left: -120px;
+  margin-top: -150px;
   z-index: 999;
   box-shadow: 0 0 12px #222;
+}
+.img-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 50px 40px;
+  overflow: auto;
+  color: #a7a0a2;
+  font-size: 22px;
+  line-height: 1.25;
+  text-align: left;
+  background-color: #fff;
+  box-sizing: border-box;
+  transform: rotateY(180deg) translateZ(1px);
+}
+.is-inverse {
+  transform: translate(262px) rotateY(180deg);
 }
