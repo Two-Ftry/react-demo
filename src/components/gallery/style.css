@@ -4,7 +4,7 @@
   height: 100%;
   background: #ddd;
   overflow: hidden;
-  perspective: 1200px;
+  perspective: 800px;
 }
 .image-list li {
   position: absolute;
@@ -17,6 +17,7 @@
   cursor: pointer;
   transform-origin: 0 50% 0;
   transform-style: preserve-3d;
+  transition: all 1s;
 }
 .image-list p {
   color: #222;
@@ -42,6 +43,7 @@
   text-align: left;
   background-color: #fff;
   box-sizing: border-box;
+  border-radius: 8px;
   transform: rotateY(180deg) translateZ(1px);
 }
 .is-inverse {

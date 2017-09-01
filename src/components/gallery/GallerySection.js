@@ -29,6 +29,9 @@ const getRandomRotate = (min, max) => {
  * 单个图片组件
  */
 class ImgFigure extends React.Component {
+  constructor (props) {
+    super(props);
+  }
   render () {
     const item = this.props.item;
     const status = this.props.status;
@@ -38,9 +41,9 @@ class ImgFigure extends React.Component {
     }
     let className = '';
     if (status.isInverse) {
-      className += 'is-inverse ';
+      className += ' is-inverse';
     }
-    className += (this.props.index === this.props.selectedIndex ? 'selected-img' : '');
+    className += (this.props.index === this.props.selectedIndex ? ' selected-img' : '');
     return (
       <li
         style={styleObj}
@@ -236,7 +239,7 @@ class GallerySection extends React.Component {
     );
   }
 
-  inverse = (index) => {
+  inverse = (index, setAnimation) => {
     const imageStateArray = this.state.imageStateArray;
     if (imageStateArray[index]) {
       imageStateArray[index].isInverse = !imageStateArray[index].isInverse;
@@ -249,7 +252,7 @@ class GallerySection extends React.Component {
   selectNewImage = index => {
     if (index === this.state.selectedIndex) {
       // 翻转图片
-      this.inverse(index);
+      this.inverse(index, true);
     } else {
       this.setState({
         selectedIndex: index
