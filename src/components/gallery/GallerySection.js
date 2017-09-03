@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PageBar from '../page-bar/PageBar';
+import PropTypes from 'prop-types';
+import * as galleryAction from '../../actions/galleryAction';
 
 require('./style.css');
 
@@ -133,8 +135,6 @@ class GallerySection extends React.Component {
         start: [width / 2 - imgWidth, 0 - imgHeight / 2],
         end: [width / 2 + imgWidth, height / 2 - imgHeight * 2 / 3]
       };
-      console.log('imgWidth, imgHeight', imgWidth, imgHeight);
-      console.log('Constant', this.Constant);
 
     this.setImgsState(this.state.selectedIndex);
   }
@@ -199,11 +199,17 @@ class GallerySection extends React.Component {
     this.setState({
       imageStateArray: imageStateArray
     });
+
+  }
+
+  componentWillMount () {
+    // 放到redux中管理
+    this.context.store.dispatch(galleryAction.setImageData(imageDatas));
   }
 
   render() {
-
-    const imageList = imageDatas.map((item, index) => {
+    // console.log('@@@render:', this.context.store.getState());
+    const imageList = this.context.store.getState().imageData.map((item, index) => {
       if (!this.state.imageStateArray[index]) {
         this.state.imageStateArray[index] = {
           pos: {
@@ -239,7 +245,7 @@ class GallerySection extends React.Component {
     );
   }
 
-  inverse = (index, setAnimation) => {
+  inverse = (index) => {
     const imageStateArray = this.state.imageStateArray;
     if (imageStateArray[index]) {
       imageStateArray[index].isInverse = !imageStateArray[index].isInverse;
@@ -261,5 +267,9 @@ class GallerySection extends React.Component {
     }
   };
 }
+
+GallerySection.contextTypes = {
+  store: PropTypes.object
+};
 
 export default GallerySection;
